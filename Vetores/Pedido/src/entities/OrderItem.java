@@ -50,9 +50,9 @@ public class OrderItem {
     @Override
     public String toString() {
         return "OrderItem{" +
-                "quantity=" + quantity +
-                ", price=" + price +
-                ", products=" + products +
-                '}';
+                "quantity= " + quantity +
+                ", price= " + price +
+                ", products= " + products +
+                " Subtotal: " + subTotal() + "}";
     }
 }
