@@ -1,6 +1,8 @@
 import entities.Client;
+import entities.Order;
 import entities.OrderItem;
 import entities.Product;
+import entities.enums.OrderStatus;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,6 +38,7 @@ public class Main {
 
         System.out.print("How many items to this order? ");
         int n = sc.nextInt();
+        Order order = new Order();
 
         for (int i=0; i<n; i++) {
             System.out.printf("Enter #%d item data:\n", i+1);
@@ -47,10 +50,16 @@ public class Main {
             System.out.print("Quantity: ");
             Integer quantity = sc.nextInt();
 
-            Product product = new Product(name, productPrice);
-            OrderItem oderItem = new OrderItem(productPrice, quantity);
-            
+            Product product = new Product(productName, productPrice);
+            OrderItem orderItem = new OrderItem(productPrice, quantity);
+            orderItem.addProduct(product);
+            order = new Order(Date.from(Instant.now()), OrderStatus.valueOf(status));
+            order.addItem(orderItem);
+            order.addClient(rafa);
         }
+        sc.close();
+        System.out.println();
+        System.out.println(order);
 
     }
 }

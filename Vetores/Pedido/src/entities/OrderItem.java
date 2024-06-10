@@ -21,7 +21,7 @@ public class OrderItem {
     public void removeProduct(Product product) {
         products.remove(product);
     }
-    
+
     public Double subTotal() {
         return quantity * price;
     }
@@ -45,5 +45,14 @@ public class OrderItem {
 
     public List<Product> getProducts() {
         return products;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "quantity=" + quantity +
+                ", price=" + price +
+                ", products=" + products +
+                '}';
     }
 }
