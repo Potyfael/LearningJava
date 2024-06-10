@@ -27,3 +27,5 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/composicao2.iml
+/.idea/
