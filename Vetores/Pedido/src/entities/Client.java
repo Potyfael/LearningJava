@@ -41,5 +41,5 @@ public class Client {
     public String toString() {
         return name + " (" + sdt.format(birthDate) + ") - " + email;
     }
-    
+
 }
