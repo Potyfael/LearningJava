@@ -18,28 +18,26 @@ public class Main {
 
         SimpleDateFormat sdt = new SimpleDateFormat("dd/MM/yyyy");
 
+        // dados do cliente
         System.out.println("Enter client data:");
         System.out.print("Name: ");
         String name = sc.nextLine();
 
         System.out.print("Email: ");
-        String email = sc.nextLine();
+        String email = sc.next();
 
         System.out.print("Birth date: ");
-        String stringDate = sc.next();
-        Date birthDay = sdt.parse(stringDate);
-
+        Date birthDay = sdt.parse(sc.next());
+        Client client = new Client(name, email, birthDay);
 
 
         System.out.print("Status: ");
-        String status = sc.next();
+        OrderStatus status = OrderStatus.valueOf(sc.next());
 
-        Client rafa = new Client(name, email, birthDay);
+        Order order = new Order(new Date(), status, client);
 
         System.out.print("How many items to this order? ");
         int n = sc.nextInt();
-        Order order = new Order();
-
         for (int i=0; i<n; i++) {
             System.out.printf("Enter #%d item data:\n", i+1);
             System.out.print("Product name: ");
@@ -51,11 +49,8 @@ public class Main {
             Integer quantity = sc.nextInt();
 
             Product product = new Product(productName, productPrice);
-            OrderItem orderItem = new OrderItem(productPrice, quantity);
-            orderItem.addProduct(product);
-            order = new Order(Date.from(Instant.now()), OrderStatus.valueOf(status));
+            OrderItem orderItem = new OrderItem(productPrice, quantity, product);
             order.addItem(orderItem);
-            order.addClient(rafa);
         }
         sc.close();
         System.out.println();

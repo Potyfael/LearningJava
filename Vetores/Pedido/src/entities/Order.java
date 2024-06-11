@@ -9,6 +9,8 @@ import java.util.List;
 
 public class Order {
 
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
     // atributos da classe
     private Date moment;
     private OrderStatus status;
@@ -16,13 +18,14 @@ public class Order {
     public Order() {
     }
 
-    public Order(Date moment, OrderStatus status) {
+    public Order(Date moment, OrderStatus status, Client client) {
         this.moment = moment;
         this.status = status;
+        this.client = client;
     }
     SimpleDateFormat sdt = new SimpleDateFormat("dd/MM/yyyy");
     // composicao
-    private List<Client> clients = new ArrayList<>();
+    private Client client;
     private List<OrderItem> orderItems = new ArrayList<>();
 
     //metodos
@@ -32,14 +35,6 @@ public class Order {
 
     public void removeItem(OrderItem item) {
         orderItems.remove(item);
-    }
-
-    public void addClient(Client client) {
-        clients.add(client);
-    }
-
-    public void removeClient(Client client) {
-        clients.remove(client);
     }
 
     public double total() {
@@ -61,8 +56,8 @@ public class Order {
         this.moment = moment;
     }
 
-    public List<Client> getClients() {
-        return clients;
+    public Client getClients() {
+        return client;
     }
 
     public List<OrderItem> getOrderItems() {
@@ -79,18 +74,19 @@ public class Order {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("ORDER SUMMARY:\n");
-        sb.append("Order moment: " + moment + "\n");
-        sb.append("Order status: " + getStatus() + "\n");
-        for (int i = 0; i < clients.size(); i++) {
-            sb.append("Client: " + clients.get(i).getName() + " " + sdt.format(clients.get(i).getBirthDate()) + " - " + clients.get(i).getEmail() + "\n");
+        sb.append("Order moment: ");
+        sb.append(sdt.format(moment) + "\n");
+        sb.append("Order status: ");
+        sb.append(status + "\n");
+        sb.append("Client: ");
+        sb.append(client + "\n");
+        sb.append("Order items:\n");
+        for (OrderItem item : orderItems) {
+            sb.append(item + "\n");
         }
-        for (OrderItem i : orderItems) {
-            sb.append(i + "\n");
-        }
-        sb.append("Total price: " + total());
+        sb.append("Total price: $");
+        sb.append(String.format("%.2f", total()));
         return sb.toString();
     }
-
 }
 
